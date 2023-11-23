@@ -3,38 +3,47 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AJAX Example</title>
+  <title>AJAX Ejemplo</title>
 </head>
 <body>
 
-<button onclick="makeRequest()">Make Request</button>
+<h1>Ejemplo de peticion de datos</h1>
+
+<button onclick="getData()">Fetch Data</button>
 
 <script>
-function makeRequest() {
-  // Create a new XMLHttpRequest object
-  var xhr = new XMLHttpRequest();
+function displayProperties(array, objectType) {
+  console.log(`Properties of ${objectType}:`);
+  array.forEach((obj, index) => {
+    console.log(`${objectType} ${index + 1}:`, obj);
+  });
+  console.log('\n');
+}
 
-  // Configure it: GET-request for the URL http://localhost:8085/ok
-  xhr.open('GET', 'http://localhost:8085/ok', true);
+function getData() {
+  // Fetch Gestores
+  fetch('http://localhost:8085/ok/gestores')
+    .then(response => response.json())
+    .then(data => displayProperties(data, 'Gestor'))
+    .catch(error => console.error('Error fetching Gestores:', error));
 
-  // Set up a callback function to handle the response
-  xhr.onload = function() {
-    if (xhr.status >= 200 && xhr.status < 300) {
-      // Successful response
-      console.log('Response:', xhr.responseText);
-    } else {
-      // Error response
-      console.error('Request failed with status:', xhr.status);
-    }
-  };
+  // Fetch Clientes
+  fetch('http://localhost:8085/ok/clientes')
+    .then(response => response.json())
+    .then(data => displayProperties(data, 'Cliente'))
+    .catch(error => console.error('Error fetching Clientes:', error));
 
-  // Set up a callback function to handle network errors
-  xhr.onerror = function() {
-    console.error('Network request failed');
-  };
+  // Fetch Mensajes
+  fetch('http://localhost:8085/ok/mensajes')
+    .then(response => response.json())
+    .then(data => displayProperties(data, 'Mensaje'))
+    .catch(error => console.error('Error fetching Mensajes:', error));
 
-  // Send the request
-  xhr.send();
+  // Fetch Transferencias
+  fetch('http://localhost:8085/ok/transferencias')
+    .then(response => response.json())
+    .then(data => displayProperties(data, 'Transferencia'))
+    .catch(error => console.error('Error fetching Transferencias:', error));
 }
 </script>
 
