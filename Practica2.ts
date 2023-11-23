@@ -45,9 +45,9 @@ const clientesArray: Cliente[] = [cliente1, cliente2, cliente3];
 const mensajesArray: Mensaje[] = [mensaje1, mensaje2, mensaje3];
 const transferenciasArray: Transferencia[] = [transferencia1, transferencia2, transferencia3];
 
-function displayProperties(array: any[], objectType: string) {
+function displayProperties(array: any[], objectType: string): void {
     console.log(`Propiedades de ${objectType}:`);
-    array.forEach((obj, index) => {
+    array.forEach((obj: any, index: number) => {
         console.log(` ${objectType} ${index + 1}:`, obj);
     });
     console.log('\n');
@@ -77,10 +77,10 @@ displayProperties(transferenciasArray, 'Transferencia');
 
 
 
-const gestoresJson = JSON.stringify(gestoresArray);
+const gestoresJson: string = JSON.stringify(gestoresArray);
 console.log('Array convertido a JSON:', gestoresJson);
 
-const parsedGestoresArray = JSON.parse(gestoresJson);
+const parsedGestoresArray: Gestor [] = JSON.parse(gestoresJson);
 console.log('JSON convertido de vuelta al array:', parsedGestoresArray);
 
 console.log('Son los objetos instancias de Gestor?', parsedGestoresArray.every(obj => obj instanceof Gestor));
